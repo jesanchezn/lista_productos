@@ -1,0 +1,33 @@
+<!-- Plantilla limpia para la lista de productos -->
+<div class="container">
+  <header>
+    <h1>{{ title | uppercase }}</h1>
+    <p>Fecha: {{ fecha | date: 'longDate' }}</p>
+  </header>
+
+  <section class="controls">
+    <button (click)="toggleLista()">{{ mostrarLista ? 'Ocultar lista' : 'Mostrar lista' }}</button>
+  </section>
+
+  <section *ngIf="mostrarLista" class="lista">
+    <h2>Productos disponibles ({{ productos.length }})</h2>
+
+    <ul>
+      <li *ngFor="let prod of productos; index as i" class="item">
+        <app-product-card [nombre]="prod"></app-product-card>
+        <button class="btn-eliminar" (click)="eliminarProducto(i)">Eliminar</button>
+      </li>
+    </ul>
+  </section>
+
+  <section class="agregar">
+    <h3>Agregar producto</h3>
+    <input
+      type="text"
+      placeholder="Nombre del producto"
+      [(ngModel)]="nuevoProducto"
+      (keyup.enter)="agregarProducto()"
+    />
+    <button (click)="agregarProducto()">Agregar</button>
+  </section>
+</div>
